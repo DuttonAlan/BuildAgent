@@ -98,7 +98,6 @@ trap 'cleanup; exit 143' TERM
 
 chmod +x ./run.sh
 
-
 # If $AZP_PLACEHOLDER is set, skipping running the agent
 if [ -n "$AZP_PLACEHOLDER" ]; then
   echo 'Running in placeholder mode, skipping running the agent'

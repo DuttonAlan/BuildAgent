@@ -1,4 +1,3 @@
-# Container App Environment
 resource "azurerm_container_app_environment" "env" {
   depends_on = [ azurerm_log_analytics_workspace.analytics ]
   name = var.container_app_env_name
@@ -7,7 +6,6 @@ resource "azurerm_container_app_environment" "env" {
   log_analytics_workspace_id = azurerm_log_analytics_workspace.analytics.id
 }
 
-# Placeholder Job
 resource "azurerm_container_app_job" "placeholder_agent_job" {
   depends_on = [ null_resource.docker_image, azurerm_container_app_environment.env ]
   name = "ph-${var.container_app_job_name}"
@@ -80,7 +78,6 @@ resource "azurerm_container_app_job" "placeholder_agent_job" {
   }
 }
 
-# Start Placeholder Job
 resource "null_resource" "start_placeholder_job" {
   depends_on = [ azurerm_container_app_job.placeholder_agent_job, azurerm_container_app_environment.env ]
   provisioner "local-exec" {
@@ -88,7 +85,6 @@ resource "null_resource" "start_placeholder_job" {
   }
 }
 
-# Pipeline Agent Job
 resource "azurerm_container_app_job" "agent_job" {
   depends_on = [ null_resource.docker_image, azurerm_container_app_environment.env ]
   name = var.container_app_job_name
